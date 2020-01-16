@@ -1,5 +1,7 @@
 import cherrypy
 import json
+import pandas as pd
+
 
 # Creation of the class 'ResourceCatalog'
 class ResourceCatalog(object): 
@@ -14,10 +16,31 @@ class ResourceCatalog(object):
             return "you have not entered the command"
         else:
             RequestCommand = str(uri[0]).lower() #Managing of the request from other devices 
-            if RequestCommand in RcDataJson: 
-                res = RcDataJson[RequestCommand]
-                reqData = json.dumps(res)
-                return reqData
+            if RequestCommand in RcDataJson:
+                if RequestCommand=="devices":
+                    res = RcDataJson[RequestCommand]
+                    df = pd.DataFrame(res)
+                    if len(uri) > 1:
+                        deviceid = str(uri[1]).lower()
+                        if deviceid.isdigit():
+                            dfData = df.loc[df['device_id'] == int(deviceid)]
+                            if len(dfData)> 0:
+                                dictData = dfData.to_dict('records')
+                                listData = dictData[0]
+                                reqData = json.dumps(listData)
+                                return reqData
+                            else:
+                                return "there is no data"
+                        else:
+                            return "device Id is not correct"
+                    else:
+                        return "you must enter the deviceid"
+                else:
+                    res = RcDataJson[RequestCommand]
+                    reqData = json.dumps(res)
+                    return reqData
+            else:
+                return "the command that entered not exist"
 
 
 if '__main__' == __name__:

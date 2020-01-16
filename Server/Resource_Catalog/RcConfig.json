@@ -1,6 +1,6 @@
 {
 	"ResourseCatalogInfo": {
-		"ip": "172.20.10.9",
+		"ip": "localhost",
 		"port":"8090"
 	}
 }
