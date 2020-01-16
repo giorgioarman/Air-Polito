@@ -19,8 +19,8 @@
 	"devices": [{
 		"device_id":1,
 		"Topics": {
-			"Spo2": "Sector1/Room1/Paitent1/Spo2",
-			"ECG": "Sector1/Room1/Paitent1/ECG"
+			"dhtTopic": "Italy/Torino/Pallazzeschi/DHT",
+			"pmTopic": "Italy/Torino/Pallazzeschi/PM"
 		},
         "ThingSpeak": {
 		    "ThingSpeak_channelID": "779308"
@@ -28,8 +28,8 @@
 	},{
 		"device_id":2,
 		"Topics": {
-			"Spo2": "Sector1/Room1/Paitent1/Spo2",
-			"ECG": "Sector1/Room1/Paitent1/ECG"
+			"dhtTopic": "Italy/Torino/Pallazzeschi/DHT",
+			"pmTopic": "Italy/Torino/Pallazzeschi/PM"
 		},
         "ThingSpeak": {
 		    "ThingSpeak_channelID": "779308"
