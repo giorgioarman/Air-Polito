@@ -42,7 +42,7 @@ class SubscribeData(object):
         messageDataJson = msg.payload.decode("utf-8")
         messageData = json.loads(messageDataJson)
 
-        if messageData["subject"] == "spo2":
+        if messageData["subject"] == "DHT":
             self.iHealthData = messageData
             counter = self.iHealthDataCounter + 1
             self.iHealthDataCounter = counter

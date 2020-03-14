@@ -1,12 +1,14 @@
-import mysql.connector as mySQL
-from mysql.connector import Error
-from mysql.connector import errorcode
-from datetime import datetime
 import pandas as pd
+import sqlite3
+
+
+
+
 
 class Mysql(object):
     def __init__(self):
-        self.db = mySQL.connect(host="localhost",user="root",passwd="mysql",db="airpolitodb")
+        self.db = sqlite3.connect('test.db')
+
 
     def select(self, table, columns, where=None):
         try:
