@@ -30,8 +30,9 @@ class DHT11_Reader(object):
             "put all the data in a Json"
             OutputJson = json.dumps({"temperature": round(self.temperature, 2), "humidity": round(self.humidity, 2)})
             sqlite = sqliteClass()
-            cResult = sqlite.insert("sensors_data", "data_sensor_name,data_sensor_json",
-                        "'DHT222','"+str(OutputJson)+"'")
+            cResult = sqlite.insert("sensors_data",
+                                    "data_sensor_name,data_sensor_json",
+                                    "'DHT222','"+str(OutputJson)+"'")
             return cResult
         else:
             return 'Temp_Humidity_Sensor: ERROR IN SENDING JSON'

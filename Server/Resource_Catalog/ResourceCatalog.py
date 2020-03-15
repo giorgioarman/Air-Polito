@@ -17,7 +17,7 @@ class ResourceCatalog(object):
         else:
             RequestCommand = str(uri[0]).lower() #Managing of the request from other devices 
             if RequestCommand in RcDataJson:
-                if RequestCommand=="devices":
+                if RequestCommand =="devices":
                     res = RcDataJson[RequestCommand]
                     df = pd.DataFrame(res)
                     if len(uri) > 1:

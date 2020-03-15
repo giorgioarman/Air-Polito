@@ -5,13 +5,17 @@ import sqlite3
 # from mysql.connector import errorcode
 # from datetime import datetime
 
+#direc = '/home/pi/Desktop/Project/SensorsDataDB.db'
+direc ='SensorsDataDB.db'
+
 
 class sqliteClass(object):
     def __init__(self):
-        self.dbCon = sqlite3.connect('SensorsDataDB.db')
+        self.dbCon = sqlite3.connect(direc)
 
     def select(self, table, columns, where=None):
         try:
+            self.__init__()
             sqlQuery ="select "+ columns +" from " + table +\
                    (" where " + where if where is not None else "")
             resultQuery = self.dbCon.execute(sqlQuery)
@@ -24,17 +28,49 @@ class sqliteClass(object):
 
     def insert(self, table, parameters, values):
         try:
-            sqlQuery = "INSERT INTO "+ table +" ("+parameters +") VALUES (" + values + ")"
+            self.__init__()
+            sqlQuery = "INSERT INTO "+ table + " (" + parameters + ") VALUES (" + values + ")"
             self.dbCon.execute(sqlQuery)
             self.dbCon.commit()
+            self.dbCon.close()
             # print("row is inserted")
             return 0
 
         except sqlite3.Error as error:
-            return("Failed to insert record into Laptop table {}".format(error))
+            return "Failed to insert, {}".format(error)
+
+    def update(self, table, values, where=None):
+        try:
+            self.__init__()
+            sqlQuery = "UPDATE " + table + " SET " + values + " WHERE " + where
+            cur = self.dbCon.cursor()
+            cur.execute(sqlQuery)
+            self.dbCon.commit()
+            self.dbCon.close()
+            return 0
+
+        except sqlite3.Error as error:
+            return "Failed to update, {}".format(error)
+
+    def delete(self, table, where=None):
+        try:
+            self.__init__()
+            sqlQuery = "select count(*) from " + table + \
+                       (" where " + where if where is not None else "")
+            rowCount = self.dbCon.execute(sqlQuery).fetchone()[0]
+            sqlQuery = "DELETE from " + table + " WHERE " + where
+            cur = self.dbCon.cursor()
+            cur.execute(sqlQuery)
+            self.dbCon.commit()
+            self.dbCon.close()
+            return rowCount
+
+        except sqlite3.Error as error:
+            return "Failed to delete, {}".format(error)
+
 # ############      SAMPLE OF USING SQLITE      ##################################
 
-# test = SqliteClass()
+# test = sqliteClass()
 # for i in range(10):
 #     test.insert("sensors_data", "data_sensor_name,data_sensor_json", "'DHT222','temp="+str(20+i)+",hum="+str(80+i)+"'")
 #
