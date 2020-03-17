@@ -5,6 +5,7 @@ import datetime
 import json
 import time
 
+db = sqliteClass('/home/pi/Desktop/Project/OutdoorDB.db')
 
 class DHT11_Reader(object):
     def __init__(self):
@@ -16,7 +17,7 @@ class DHT11_Reader(object):
         sensor_type = Adafruit_DHT.AM2302
         try:
             self.humidity, self.temperature = Adafruit_DHT.read_retry(sensor_type, 19)
-            "Reading Data of sensor DHT11 on PIN 19 of Raspberry"
+            "Reading Data of sensor DHT11 on PIN 19 of OutdoorPi"
         except:
             return 'Temp_Humidity_Sensor: ERROR IN READING THE SENSOR'
 
@@ -29,10 +30,8 @@ class DHT11_Reader(object):
                 self.flagPrint = False
             "put all the data in a Json"
             OutputJson = json.dumps({"temperature": round(self.temperature, 2), "humidity": round(self.humidity, 2)})
-            sqlite = sqliteClass()
-            cResult = sqlite.insert("sensors_data",
-                                    "data_sensor_name,data_sensor_json",
-                                    "'DHT222','"+str(OutputJson)+"'")
+            cResult = db.insert("sensors_data", "data_sensor_name,data_sensor_json",
+                                    "'DHT222','" + str(OutputJson)+"'")
             return cResult
         else:
             return 'Temp_Humidity_Sensor: ERROR IN SENDING JSON'

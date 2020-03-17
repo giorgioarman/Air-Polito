@@ -1,6 +1,8 @@
 import cherrypy
 import json
+from DbClass import sqliteClass
 
+db = sqliteClass('/home/pi/Desktop/Project/IndoorDb.db')
 
 # Creation of the class 'ResourceCatalog'
 class ResourceCatalog(object):
@@ -24,11 +26,21 @@ class ResourceCatalog(object):
             RequestCommand = str(uri[0]).lower() #Managing of the request from other devices
             if RequestCommand == 'getdata':
                 rawData = cherrypy.request.body.read(int(cherrypy.request.headers['Content-Length']))
-                b = json.loads(rawData)
-                print (b)
-                return 'status=ok'
+                recievedData = json.loads(rawData)
+                sensorData = recievedData['data_sensor_json']
+                sensorName = recievedData['data_sensor_name']
+                sensorDate = recievedData['data_date']
+
+                cResult = db.insert("sensors_data",
+                                        "data_sensor_name,data_sensor_json,data_date",
+                                        "'" + str(sensorName) + "','" + str(sensorData) + "','" + str(sensorDate) + "'")
+                if cResult == 0:
+                    return 'status=ok'
+                else:
+                    return 'status=error'
             else:
                 return "the command that entered not exist"
+
 
 def error_page_404(status, message, traceback, version):
     return "404 Error!"

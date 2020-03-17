@@ -3,6 +3,7 @@ from serial import Serial
 import struct, time, json
 from DbClass import sqliteClass
 
+db = sqliteClass('/home/pi/Desktop/Project/OutdoorDB.db')
 DEBUG = 0
 CMD_MODE = 2
 CMD_QUERY_DATA = 4
@@ -90,15 +91,13 @@ class PM_Reader(object):
         for t in range(4):
             values = self.cmd_query_data()
             if values is not None and len(values) == 2:
-                print("attempt no. "+str(t) + " : PM2.5: ", values[0], ", PM10: ", values[1])
+                print("attempt no."+str(t) + " : PM2.5: ", values[0], ", PM10: ", values[1])
                 time.sleep(2)
         cResult = -1
         if values is not None and len(values) == 2:
-            outputJson = json.dumps({'pm25': values[0], 'pm10': values[1], 'time': time.strftime("%d.%m.%Y %H:%M:%S")})
+            outputJson = json.dumps({'pm25': values[0], 'pm10': values[1]})
             print(outputJson)
-            sqlite = sqliteClass()
-            cResult = sqlite.insert("sensors_data",
-                                    "data_sensor_name,data_sensor_json",
+            cResult = db.insert("sensors_data", "data_sensor_name,data_sensor_json",
                                     "'PM10','" + str(outputJson) + "'")
         try:
             if self.ser.is_open:

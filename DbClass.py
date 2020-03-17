@@ -1,21 +1,24 @@
 import pandas as pd
 import sqlite3
-# import mysql.connector as mySQL
-# from mysql.connector import Error
-# from mysql.connector import errorcode
-# from datetime import datetime
+import mysql.connector as mySQL
+from mysql.connector import Error
+from mysql.connector import errorcode
+from datetime import datetime
 
-#direc = '/home/pi/Desktop/Project/SensorsDataDB.db'
-direc ='SensorsDataDB.db'
+# direc = '/home/pi/Desktop/Project/OutdoorDB.db'
+# direc ='IndoorDb.db'
 
 
 class sqliteClass(object):
-    def __init__(self):
-        self.dbCon = sqlite3.connect(direc)
+    def __init__(self, dirDB):
+        self.dirDb = dirDB
+
+    def connectDb(self):
+        self.dbCon = sqlite3.connect(self.dirDb)
 
     def select(self, table, columns, where=None):
         try:
-            self.__init__()
+            self.connectDb()
             sqlQuery ="select "+ columns +" from " + table +\
                    (" where " + where if where is not None else "")
             resultQuery = self.dbCon.execute(sqlQuery)
@@ -28,7 +31,7 @@ class sqliteClass(object):
 
     def insert(self, table, parameters, values):
         try:
-            self.__init__()
+            self.connectDb()
             sqlQuery = "INSERT INTO "+ table + " (" + parameters + ") VALUES (" + values + ")"
             self.dbCon.execute(sqlQuery)
             self.dbCon.commit()
@@ -41,7 +44,7 @@ class sqliteClass(object):
 
     def update(self, table, values, where=None):
         try:
-            self.__init__()
+            self.connectDb()
             sqlQuery = "UPDATE " + table + " SET " + values + " WHERE " + where
             cur = self.dbCon.cursor()
             cur.execute(sqlQuery)
@@ -54,7 +57,7 @@ class sqliteClass(object):
 
     def delete(self, table, where=None):
         try:
-            self.__init__()
+            self.connectDb()
             sqlQuery = "select count(*) from " + table + \
                        (" where " + where if where is not None else "")
             rowCount = self.dbCon.execute(sqlQuery).fetchone()[0]
@@ -70,47 +73,47 @@ class sqliteClass(object):
 
 # ############      SAMPLE OF USING SQLITE      ##################################
 
-# test = sqliteClass()
+# test = sqliteClass('OutdoorPi\IndoorDb.db')
 # for i in range(10):
 #     test.insert("sensors_data", "data_sensor_name,data_sensor_json", "'DHT222','temp="+str(20+i)+",hum="+str(80+i)+"'")
 #
 # xx = test.select("sensors_data", "*", "data_id >4")
 # print xx
 
-# class Mysql(object):
-#     def __init__(self):
-#         self.db = mySQL.connect(host="localhost",user="root",passwd="mysql",db="airpolitodb")
+class Mysql(object):
+    def __init__(self):
+        self.db = mySQL.connect(host="localhost",user="root",passwd="mysql",db="airpolitodb")
+
+    def select(self, table, columns, where=None):
+        try:
+            query ="select "+ columns +" from " + table +\
+                   (" where " + where if where is not None else "")
+            cur = self.db.cursor()
+            cur.execute(query)
+            df = pd.DataFrame(cur.fetchall())
+            df.columns = cur.column_names
+            cur.close()
+            return df
+        except mySQL.Error as error:
+            print("Failed to insert record into Laptop table {}".format(error))
+
+    def insert(self, table, parameters, values):
+        try:
+            cur = self.db.cursor()
+            sql = "INSERT INTO "+ table +" ("+parameters +") VALUES (" + values + ")"
+            cur.execute(sql)
+            self.db.commit()
+            cur.close()
+            print("row is inserted")
+        except mySQL.Error as error:
+            print("Failed to insert record into Laptop table {}".format(error))
+# ############      SAMPLE OF USING MYSQL     ##################################
 #
-#     def select(self, table, columns, where=None):
-#         try:
-#             query ="select "+ columns +" from " + table +\
-#                    (" where " + where if where is not None else "")
-#             cur = self.db.cursor()
-#             cur.execute(query)
-#             df = pd.DataFrame(cur.fetchall())
-#             df.columns = cur.column_names
-#             cur.close()
-#             return df
-#         except mySQL.Error as error:
-#             print("Failed to insert record into Laptop table {}".format(error))
+#     test = Mysql()
+#     test.select("sensor_dht","*","ID >4")
 #
-#     def insert(self, table, parameters, values):
-#         try:
-#             cur = self.db.cursor()
-#             sql = "INSERT INTO "+ table +" ("+parameters +") VALUES (" + values + ")"
-#             cur.execute(sql)
-#             self.db.commit()
-#             cur.close()
-#             print("row is inserted")
-#         except mySQL.Error as error:
-#             print("Failed to insert record into Laptop table {}".format(error))
-# # ############      SAMPLE OF USING MYSQL     ##################################
-# #
-# #     test = Mysql()
-# #     test.select("sensor_dht","*","ID >4")
-# #
-# #     test.insert("sensor_dht","datetime,temprature_value,humidity_value", "'" + str(datetime.now())+"',25,50")
-# #
-# #
+#     test.insert("sensor_dht","datetime,temprature_value,humidity_value", "'" + str(datetime.now())+"',25,50")
+#
+#
 
 

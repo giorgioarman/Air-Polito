@@ -1,0 +1,19 @@
+To create REST API:
+we used object oriented architecture in PHP,
+The main files are `insertData` and  `readData` which provide to insert data to Online Database in our website.
+
+But here because we used **WordPress** as template of our website, practically we can't put our file in the directory 
+and simply use it; so to solve this problem we add this piece in our file:
+```
+/*
+* Template Name: readRestAqi
+* description: >-
+Page template without sidebar
+*/ 
+```
+In the end we upload our files in the root directory of active theme in the following path: 
+`Airpolito.it/wp-content/theme`
+
+By adding the previous code, the word press recognize these two files as template, by creating two new page for each 
+function (insert and read). the important notice, during the creation of page you must select the template from the 
+right pane.

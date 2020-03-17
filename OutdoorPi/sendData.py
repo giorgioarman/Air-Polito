@@ -4,7 +4,10 @@ import requests
 import datetime
 import time
 
-db = sqliteClass()
+db = sqliteClass('/home/pi/Desktop/Project/OutdoorDB.db')
+urlRest = 'http://indoorpi.local:8090/getdata'
+# db = sqliteClass('OutdoorDB.db')
+# urlRest = 'http://localhost:8090/getdata'
 
 
 def readData():
@@ -20,11 +23,12 @@ def sendData(data):
         sensorName = row['data_sensor_name']
         sensorDate = row['data_date']
 
-        jsonToSend = json.loads(sensorData)
+        jsonToSend = {}
+        jsonToSend['data_sensor_json'] = sensorData
         jsonToSend['data_sensor_name'] = sensorName
         jsonToSend['data_date'] = sensorDate
         try:
-            rResponse = requests.post('http://indoorpi.local:8090/getdata', json=jsonToSend)
+            rResponse = requests.post(urlRest, json=jsonToSend)
             if rResponse.text == 'status=ok':
                 dResponse = db.update('sensors_data', 'data_sent=1', 'data_id=' + str(data_id))
                 if dResponse == 0:
