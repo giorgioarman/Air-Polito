@@ -10,6 +10,24 @@ Page template without sidebar
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
+// Authentication for the Rest Api
+$user = $_SERVER['PHP_AUTH_USER'];
+$pass = $_SERVER['PHP_AUTH_PW'];
+
+$valid_passwords = array ("arman" => "okAbc1234");
+$valid_users = array_keys($valid_passwords);
+
+$validated = (in_array($user, $valid_users)) && ($pass == $valid_passwords[$user]);
+
+if (!$validated) {
+  header('WWW-Authenticate: Basic realm="Rest AQI Auth"');
+  header('HTTP/1.0 401 Unauthorized');
+  echo json_encode(
+        array("message" => "Not authorized")
+    );
+  die ();
+}
+
 // get database connection
 include_once get_template_directory() . '/aqi/Database.php';
 
@@ -18,7 +36,7 @@ include_once get_template_directory() . '/aqi/AQI.php';
 
 $database = new Database();
 $db = $database->getConnection();
-//TODO : Add authentication for reading data and the number of rows which is needed as parameter
+
 
 
 $aqi = new Aqi($db);
@@ -47,7 +65,8 @@ if($num>0){
             "aqiValue" => $aqiValue,
             "aqiStatus" => $aqiStatus,
             "aqiDateInsert" => $aqiDateInsert,
-            "aqiDateCollect" => $aqiDateCollect
+            "aqiDateCollect" => $aqiDateCollect,
+            "aqiSensorData" => $aqiSensorData
         );
 
         array_push($rowsArr["records"], $rowItem);

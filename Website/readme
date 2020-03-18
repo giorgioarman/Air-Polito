@@ -17,3 +17,6 @@ In the end we upload our files in the root directory of active theme in the foll
 By adding the previous code, the word press recognize these two files as template, by creating two new page for each 
 function (insert and read). the important notice, during the creation of page you must select the template from the 
 right pane.
+
+For more security on Rest api, we developed a basic authentication on the rest api, in which for 
+each request(read or insert) is mandatory to pass user name and password. 

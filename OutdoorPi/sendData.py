@@ -56,10 +56,14 @@ def cleanDb():
 
 if '__main__' == __name__:
     while True:
+        get_time = datetime.datetime.now()
+        current_time = get_time.strftime("%Y-%m-%d %H:%M:%S")
+        print("****************************************************" + current_time)
         cleanDb()
         data = readData()
         print 'Total rows for send to IndoorPI ', len(data)
-        sendData(data)
+        if len(data) > 0:
+            sendData(data)
         time.sleep(60)
 
 

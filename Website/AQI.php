@@ -5,11 +5,11 @@ class Aqi{
     private $conn;
     private $table_name = "AQI_Data";
 
-    //TODO compare all the variable which is needed in the Raspberry with online database
     // object properties
     public $aqiId;
     public $aqiValue;
     public $aqiStatus;
+    public $aqiSensorData;
     public $aqiDateCollect;
     public $aqiDateInsert;
 
@@ -21,24 +21,28 @@ class Aqi{
     // create product
     function create(){
 
-        // query to insert record
-        $query = "INSERT INTO
-                    " . $this->table_name . "
-                SET // name in the database=:name of object
-                    aqi_value=:aqiValue, aqi_status=:aqiStatus, aqi_date_collect=:aqiDateCollect";
-
-        // prepare query
-        $stmt = $this->conn->prepare($query);
-
         // sanitize
         $this->aqiValue=htmlspecialchars(strip_tags($this->aqiValue));
         $this->aqiStatus=htmlspecialchars(strip_tags($this->aqiStatus));
         $this->aqiDateCollect=htmlspecialchars(strip_tags($this->aqiDateCollect));
+        //$this->aqiSensorData=htmlspecialchars(strip_tags($this->aqiSensorData));
+
+        // query to insert record
+        $query = "INSERT INTO
+                    " . $this->table_name . "
+                SET aqi_value=:aqiValue,
+                    aqi_status=:aqiStatus,
+                    aqi_date_collect=:aqiDateCollect,
+                    aqi_sensor_data=:aqiSensorData";
+
+        // prepare query
+        $stmt = $this->conn->prepare($query);
 
         // bind values
         $stmt->bindParam(":aqiValue", $this->aqiValue);
         $stmt->bindParam(":aqiStatus", $this->aqiStatus);
         $stmt->bindParam(":aqiDateCollect", $this->aqiDateCollect);
+        $stmt->bindParam(":aqiSensorData", $this->aqiSensorData);
 
         // execute query
         if($stmt->execute()){
@@ -55,6 +59,7 @@ class Aqi{
                     p.aqi_id as aqiId,
                     p.aqi_value as aqiValue,
                     p.aqi_status as aqiStatus,
+                    p.aqi_sensor_data as aqiSensorData,
                     p.aqi_date_collect as aqiDateCollect,
                     p.aqi_date_insert as aqiDateInsert
                 FROM
