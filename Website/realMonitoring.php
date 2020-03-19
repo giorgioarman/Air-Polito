@@ -60,26 +60,20 @@ if ($aqiStatus == "Ottima") {
 $bgUrl = get_template_directory_uri() . '/aqi/resources/hero-bg.png'
 ?>
 
-//<style>
-//<?php include get_template_directory_uri() . '/aqi/CSS/style.css';  ?>
-//</style>
-
-<link href="<?php echo get_template_directory_uri() . '/aqi/CSS/style.css' ?>" rel="stylesheet">
-<link href="<?php echo get_template_directory_uri() . '/aqi/CSS/bootstrap.min.css' ?>" rel="stylesheet">
+<link href="<?php echo get_template_directory_uri() . '/aqi/CSS/styleAvatar.css' ?>" rel="stylesheet">
 
 
-
-  <div class="container" style="background: url('<?php echo $bgUrl ?>') center bottom no-repeat;">
-    <div class="page_content row bgbg">
+  <div class="container page-box" style="background: url('<?php echo $bgUrl ?>') center bottom no-repeat;">
+    <div class="page_content row">
       <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
-        <section id="hero" class="wow fadeIn">
+        <section id="hero" >
+        <h1>ZEBRA</h1>
           <div class="hero-container">
-            <h1>ZEBRA</h1>
             <img src="<?php echo $avatarUrl; ?>" alt="Hero Imgs" width="400">
             <a class="btn-get-started <?php echo $aqiStatus . '-color' ?>">In questo momento la qualità dell aria
               è <?php echo $aqiStatus?></a>
-            <div class="hero">
-              <h2><i class=""></i> Continiuamo ad impegnarci così</h2>
+            <div class="comment-hero">
+              <h2> Continiuamo ad impegnarci così</h2>
             </div>
           </div>
         </section>

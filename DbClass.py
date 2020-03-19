@@ -16,13 +16,14 @@ class sqliteClass(object):
     def connectDb(self):
         self.dbCon = sqlite3.connect(self.dirDb)
 
-    def select(self, table, columns, where=None, orderBy=None, groupBy=None):
+    def select(self, table, columns, where=None, orderBy=None, groupBy=None, limit=None):
         try:
             self.connectDb()
             sqlQuery ="select "+ columns +" from " + table +\
                 (" where " + where if where is not None else "") + \
                 (" GROUP BY " + groupBy if groupBy is not None else "") + \
-                (" ORDER BY " + orderBy if orderBy is not None else "")
+                (" ORDER BY " + orderBy if orderBy is not None else "") + \
+                (" LIMIT " + str(limit) if limit is not None else "")
             resultQuery = self.dbCon.execute(sqlQuery)
             cols = [column[0] for column in resultQuery.description]
             df = pd.DataFrame(resultQuery.fetchall(), columns=cols)

@@ -11,7 +11,7 @@ urlRest = 'https://www.airpolito.it/restaqi-insert/'
 
 
 def readData():
-    dataDF = db.select('apqi_data', '*', 'data_sent=0')
+    dataDF = db.select('apqi_data', '*', 'data_sent=0', limit=20)
     return dataDF
 
 
@@ -48,6 +48,9 @@ def sendData(data):
         except requests.exceptions.RequestException as err:
             cError = err
             break
+        except:
+            dResponse = db.update('apqi_data', 'data_sent=1', 'data_id=' + str(data_id))
+            cError = 'error in rendering response from server'
 
     if cError is None:
         return "From {0} rows, {1} are sent successfully.".format(len(data), counting)

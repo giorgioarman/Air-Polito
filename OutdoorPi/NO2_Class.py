@@ -3,8 +3,8 @@ import random
 import struct, time, json
 from DbClass import sqliteClass
 
-# db = sqliteClass('/home/pi/Desktop/Project/OutdoorDB.db')
-db = sqliteClass('OutdoorDB.db')
+db = sqliteClass('/home/pi/Desktop/Project/OutdoorDB.db')
+# db = sqliteClass('OutdoorDB.db')
 #
 
 class NO2_Reader(object):
