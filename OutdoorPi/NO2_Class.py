@@ -11,7 +11,7 @@ class NO2_Reader(object):
     # TODO: must connect sensor to the class and remove random number
 
     def get_no2(self):
-        no2Value = random.randrange(150, 250)
+        no2Value = random.randrange(90, 250)
         cResult = -1
         if no2Value is not None:
             outputJson = json.dumps({'no2': no2Value})

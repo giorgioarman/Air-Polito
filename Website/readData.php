@@ -37,8 +37,6 @@ include_once get_template_directory() . '/aqi/AQI.php';
 $database = new Database();
 $db = $database->getConnection();
 
-
-
 $aqi = new Aqi($db);
 
 // query products
