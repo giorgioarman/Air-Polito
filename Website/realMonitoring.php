@@ -50,12 +50,16 @@ $hum = $aqiSensorDataJson['hum'];
 // select Avatar Status
 if ($aqiStatus == "Ottima") {
    $avatarUrl = get_template_directory_uri() . '/aqi/resources/Ottima.gif';
+   $avatarComment = 'Continuiamo ad impegnarci così.';
 } elseif ($aqiStatus == "Buona") {
     $avatarUrl = get_template_directory_uri() . '/aqi/resources/Buona.gif';
+    $avatarComment = 'Bene! Ma possiamo fare di meglio.';
 } elseif ($aqiStatus == "Accettabile") {
     $avatarUrl = get_template_directory_uri() . '/aqi/resources/Accettabile.gif';
+    $avatarComment = 'possiamo e dobbiamo migliorare.';
 } else {
     $avatarUrl = get_template_directory_uri() . '/aqi/resources/Cattiva.gif';
+    $avatarComment = 'a situazione non è per nulla buona.';
 }
 $bgUrl = get_template_directory_uri() . '/aqi/resources/hero-bg.png'
 ?>
@@ -67,13 +71,13 @@ $bgUrl = get_template_directory_uri() . '/aqi/resources/hero-bg.png'
     <div class="page_content row">
       <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
         <section id="hero" >
-        <h1>ZEBRA</h1>
           <div class="hero-container">
+            <h2 class="avatar-name">ZEBRA</h2>
             <img src="<?php echo $avatarUrl; ?>" alt="Hero Imgs" width="400">
             <a class="btn-get-started <?php echo $aqiStatus . '-color' ?>">In questo momento la qualità dell aria
               è <?php echo $aqiStatus?></a>
             <div class="comment-hero">
-              <h2> Continiuamo ad impegnarci così</h2>
+              <h2 class="<?php echo 'comment-' . $aqiStatus ?>"> <?php echo $avatarComment?></h2>
             </div>
           </div>
         </section>
