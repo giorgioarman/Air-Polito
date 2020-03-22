@@ -58,12 +58,12 @@ if '__main__' == __name__:
     while True:
         get_time = datetime.datetime.now()
         current_time = get_time.strftime("%Y-%m-%d %H:%M:%S")
-        print("****************************************************" + current_time)
+        print("****Send to Indoor DB****************************************" + current_time)
         cleanDb()
         data = readData()
         print 'Total rows for send to IndoorPI ', len(data)
         if len(data) > 0:
             sendData(data)
-        time.sleep(60)
+        time.sleep(10)
 
 

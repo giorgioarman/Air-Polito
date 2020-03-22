@@ -70,13 +70,13 @@ if '__main__' == __name__:
     while True:
         get_time = datetime.datetime.now()
         current_time = get_time.strftime("%Y-%m-%d %H:%M:%S")
-        print("****************************************************" + current_time)
+        print("*****Send to Online DB***********************************" + current_time)
         cleanDb()
         data = readData()
         if len(data) > 0:
             print ('Total rows for sending to OnLine Database ', len(data))
             sdResponse = sendData(data)
             print (sdResponse)
-        time.sleep(60)
+        time.sleep(10)
 
 

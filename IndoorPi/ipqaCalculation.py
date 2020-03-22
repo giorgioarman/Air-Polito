@@ -124,7 +124,7 @@ if '__main__' == __name__:
     while True:
         get_time = datetime.datetime.now()
         current_time = get_time.strftime("%Y-%m-%d %H:%M:%S")
-        print("****************************************************" + current_time)
+        print("***IPQA Calculation*******************************************" + current_time)
         cleanDb()
         data = readData()
         cVal, sensorDate = validationData(data)
@@ -136,4 +136,4 @@ if '__main__' == __name__:
                 print(cResponse)
         else:
             print (cVal)
-        time.sleep(60)
+        time.sleep(10)

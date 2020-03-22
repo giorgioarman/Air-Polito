@@ -1,4 +1,5 @@
 <?php /* Template Name: realMonitoring */
+
 get_header();
 
 include_once get_template_directory() . '/aqi/Database.php';
@@ -64,6 +65,7 @@ if ($aqiStatus == "Ottima") {
 $bgUrl = get_template_directory_uri() . '/aqi/resources/hero-bg.png'
 ?>
 
+<meta http-equiv="refresh" content="30">
 <link href="<?php echo get_template_directory_uri() . '/aqi/CSS/styleAvatar.css' ?>" rel="stylesheet">
 
 
