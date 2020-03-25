@@ -25,6 +25,10 @@
   margin-top: 15px;
 }
 
+.comment-hero h2{
+  color: #555;
+}
+
 .avatar-name{
   margin: 0 0 10px 0;
   font-size: 48px !important;

@@ -70,9 +70,10 @@ $bgUrl = get_template_directory_uri() . '/aqi/resources/hero-bg.png'
 
 <meta http-equiv="refresh" content="30">
 <link href="<?php echo get_template_directory_uri() . '/aqi/CSS/styleAvatar.css' ?>" rel="stylesheet">
+<link href="<?php echo get_template_directory_uri() . '/aqi/CSS/bootstrap.min.css' ?>" rel="stylesheet">
 
 
-  <div class="container page-box" style="background: url('<?php echo $bgUrl ?>') center bottom no-repeat;">
+div class="container page-box" style="background: url('<?php echo $bgUrl ?>') center bottom no-repeat;">
     <div class="page_content row">
       <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
         <section id="hero" >
@@ -111,5 +112,3 @@ $bgUrl = get_template_directory_uri() . '/aqi/resources/hero-bg.png'
       <div class="clear"></div>
     </div>
   </div>
-
-<?php get_footer();?>
