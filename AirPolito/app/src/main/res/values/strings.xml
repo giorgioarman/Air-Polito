@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">AirPolito</string>
+    <string name="app_name">Air Quality Polito</string>
+
+    <!--menu-->
+    <string name="online_monitoring">Online Monitoraggio</string>
+    <string name="location">Posizione dei sensori</string>
+    <string name="project_detail">Progetto</string>
+    <string name="ipqa_detail">L\'IPQA</string>
+    <string name="who_we_are">Chi Siamo</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_about">Info</string>
 </resources>

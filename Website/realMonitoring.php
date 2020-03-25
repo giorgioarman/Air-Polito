@@ -1,4 +1,4 @@
-<?php /* Template Name: realMonitoring */
+﻿<?php /* Template Name: realMonitoring */
 
 get_header();
 
@@ -57,10 +57,13 @@ if ($aqiStatus == "Ottima") {
     $avatarComment = 'Bene! Ma possiamo fare di meglio.';
 } elseif ($aqiStatus == "Accettabile") {
     $avatarUrl = get_template_directory_uri() . '/aqi/resources/Accettabile.gif';
-    $avatarComment = 'possiamo e dobbiamo migliorare.';
-} else {
+    $avatarComment = 'possiamo e dobbiamo migliorare!';
+} elseif ($aqiStatus == "Cattiva") {
     $avatarUrl = get_template_directory_uri() . '/aqi/resources/Cattiva.gif';
     $avatarComment = 'a situazione non è per nulla buona.';
+} else {
+    $avatarUrl = get_template_directory_uri() . '/aqi/resources/Pessima.gif';
+    $avatarComment = 'stiamo rischiando! Non va affatto bene!';
 }
 $bgUrl = get_template_directory_uri() . '/aqi/resources/hero-bg.png'
 ?>
@@ -74,8 +77,8 @@ $bgUrl = get_template_directory_uri() . '/aqi/resources/hero-bg.png'
       <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
         <section id="hero" >
           <div class="hero-container">
-            <h2 class="avatar-name">ZEBRA</h2>
-            <img src="<?php echo $avatarUrl; ?>" alt="Hero Imgs" width="400">
+            <h2 class="avatar-name">Evan</h2>
+            <img src="<?php echo $avatarUrl; ?>" alt="Hero Imgs" width="350">
             <a class="btn-get-started <?php echo $aqiStatus . '-color' ?>">In questo momento la qualità dell aria
               è <?php echo $aqiStatus?></a>
             <div class="comment-hero">

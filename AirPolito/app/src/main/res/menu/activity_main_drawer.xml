@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_online_monitoring"
+            android:icon="@drawable/ic_online_monitoring"
+            android:title="@string/online_monitoring" />
+        <item
+            android:id="@+id/nav_location"
+            android:icon="@drawable/ic_location"
+            android:title="@string/location" />
+    </group>
+
+    <item android:title="@string/menu_about">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_project_detail"
+                    android:icon="@drawable/ic_project_details"
+                    android:title="@string/project_detail" />
+                <item
+                    android:id="@+id/nav_ipqa"
+                    android:icon="@drawable/ic_ipqa"
+                    android:title="@string/ipqa_detail" />
+                <item
+                    android:id="@+id/nav_who_we_are"
+                    android:icon="@drawable/ic_who_we_are"
+                    android:title="@string/who_we_are" />
+            </group>
+        </menu>
+    </item>
+
+</menu>
