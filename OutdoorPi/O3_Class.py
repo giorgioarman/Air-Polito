@@ -10,7 +10,7 @@ class O3_Reader(object):
     # TODO: must connect sensor to the class and remove random number
 
     def get_o3(self):
-        o3Value = random.randrange(20, 150)
+        o3Value = random.randrange(20, 100)
         cResult = -1
         if o3Value is not None:
             outputJson = json.dumps({'o3': o3Value})

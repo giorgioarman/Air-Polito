@@ -1,6 +1,4 @@
-﻿<?php /* Template Name: realMonitoring */
-
-get_header();
+﻿<?php /* Template Name: realMonitoringAndroid */
 
 include_once get_template_directory() . '/aqi/Database.php';
 include_once get_template_directory() . '/aqi/AQI.php';
@@ -73,7 +71,7 @@ $bgUrl = get_template_directory_uri() . '/aqi/resources/hero-bg.png'
 <link href="<?php echo get_template_directory_uri() . '/aqi/CSS/bootstrap.min.css' ?>" rel="stylesheet">
 
 
-div class="container page-box" style="background: url('<?php echo $bgUrl ?>') center bottom no-repeat;">
+<div class="container page-box" style="background: url('<?php echo $bgUrl ?>') center bottom no-repeat;">
     <div class="page_content row">
       <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
         <section id="hero" >
@@ -107,6 +105,7 @@ div class="container page-box" style="background: url('<?php echo $bgUrl ?>') ce
               <li class="text-body list-group-item list-group-item-info">NO2: <?php echo $no2; ?></li>
               <li class="text-body list-group-item list-group-item-info">O3: <?php echo $o3; ?></li>
             </ul>
+            <h4 class="text-center custumTagH">* Valori di no2 e o3 temporaneamente simulati</h4>
         </div>
       </div>
       <div class="clear"></div>

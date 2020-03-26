@@ -64,8 +64,8 @@ public class LocationFragment extends Fragment {
 
                 // For dropping a marker at a point on the Map
                 LatLng schoolPOsition = new LatLng(45.06268, 7.6282809);
-                googleMap.addMarker(new MarkerOptions().position(schoolPOsition).title("Scoula Palazzeschi")
-                        .snippet("Dove sensori sono installati"));
+                googleMap.addMarker(new MarkerOptions().position(schoolPOsition).title("Scuola Aldo Palazzeschi")
+                        .snippet("Luogo in cui sono installati i sensori"));
 
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder()

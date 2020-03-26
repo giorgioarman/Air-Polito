@@ -14,4 +14,7 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu_about">Info</string>
+
+    <string name="more_information">Per maggiori informazioni, guardate il nostro sito: <a href="https://www.airpolito.it/"> airpolito.it//</a></string>
+
 </resources>

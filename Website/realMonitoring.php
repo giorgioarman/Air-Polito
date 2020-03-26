@@ -106,6 +106,7 @@ $bgUrl = get_template_directory_uri() . '/aqi/resources/hero-bg.png'
               <li class="text-body list-group-item list-group-item-info">NO2: <?php echo $no2; ?></li>
               <li class="text-body list-group-item list-group-item-info">O3: <?php echo $o3; ?></li>
             </ul>
+            <h4 class="text-center custumTagH">* Valori di no2 e o3 temporaneamente simulati</h4>
         </div>
       </div>
       <div class="clear"></div>
