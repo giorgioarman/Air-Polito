@@ -16,5 +16,6 @@
     <string name="menu_about">Info</string>
 
     <string name="more_information">Per maggiori informazioni, guardate il nostro sito: <a href="https://www.airpolito.it/"> airpolito.it//</a></string>
+    <string name="notification_error_ssl_cert_invalid">We get an warning in SSL, Do you want to procced ??</string>
 
 </resources>

@@ -4,8 +4,8 @@ import requests
 import datetime
 import time
 
-db = sqliteClass('/home/pi/Desktop/Project/IndoorDb.db')
-# db = sqliteClass('IndoorDb.db')
+# db = sqliteClass('/home/pi/Desktop/Project/IndoorDb.db')
+db = sqliteClass('IndoorDb.db')
 
 urlRest = 'https://www.airpolito.it/restaqi-insert/'
 

@@ -35,7 +35,7 @@
   font-weight: 700 !important;
   line-height: 56px !important;
   font-family: "Philosopher", sans-serif !important;
-  color: #71c55d !important;
+  color: #ff6600 !important;
 }
 
 #hero h2{
@@ -96,6 +96,10 @@
 }
 
 
+.comment-Pessima{
+  color: #c5000a;
+}
+
 
 .Ottima-color {
   border: 2px solid #4bc52a;
@@ -134,6 +138,16 @@
 
 #hero .Cattiva-color:hover {
   background: #C53A00;
+  color: #fff;
+}
+
+.Pessima-color {
+  border: 2px solid #c5000a;
+  color: #c5000a;
+}
+
+#hero .Pessima-color:hover {
+  background: #c5000a;
   color: #fff;
 }
 

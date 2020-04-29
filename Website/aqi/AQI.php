@@ -76,5 +76,32 @@ class Aqi{
 
         return $stmt;
     }
+
+    // read products
+    function readAVG(){
+        // select all query
+        $query = "SELECT
+                    p.aqi_id as aqiId,
+                    p.aqi_value as aqiValue,
+                    p.aqi_status as aqiStatus,
+                    p.aqi_sensor_data as aqiSensorData,
+                    p.aqi_date_collect as aqiDateCollect,
+                    p.aqi_date_insert as aqiDateInsert,
+                    AVG(p.aqi_value) as average
+            FROM
+                    " . $this->table_name . " p
+            WHERE p.aqi_date_collect <= CURDATE() AND p.aqi_date_collect > DATE(NOW()) - INTERVAL 7 DAY
+            GROUP BY DATE(p.aqi_date_collect)
+            ORDER BY p.aqi_date_collect DESC
+            LIMIT 7 ";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+
+        // execute query
+        $stmt->execute();
+
+        return $stmt;
+    }
 }
 ?>
