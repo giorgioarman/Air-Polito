@@ -2,6 +2,7 @@
 from DbClass import sqliteClass
 import json
 import requests
+import pandas as pd
 import datetime
 import time
 import pandas
@@ -57,6 +58,59 @@ def validationData(data):
         return 'There is no data', ''
 
 
+def applySurvey(pmValue, no2Value, o3Value):
+    df = pd.read_csv("/home/pi/Desktop/Project/Abitudini.csv", header=0)
+    output = 0
+    for index, row in df.iterrows():
+        date, primo, secondo, terzo, quarto, quinto = row
+        output = 0
+        if primo == 'Si':
+            output += 3
+
+        if secondo == 'Si':
+            output += 2
+        if secondo == 'A volte':
+            output += 1
+
+        if terzo == 'Vetro':
+            output += 1
+
+        if quarto == 'la apro solo quando necessario':
+            output += 2
+        elif quarto == 'a volte la lascio scorrere altre volte la chiudo':
+            output += 1
+
+        if quinto == 'Si':
+            output += 2
+        elif quinto == 'A volte':
+            output += 1
+
+    media = round(output / (len(df) - 1), 0)
+
+    if media == 0 or media == 10:
+        pmValue += (pmValue * 0.25)
+        no2Value += (no2Value * 0.25)
+        o3Value += (o3Value * 0.25)
+    if media == 1 or media == 9:
+        pmValue += (pmValue * 0.20)
+        no2Value += (no2Value * 0.20)
+        o3Value += (o3Value * 0.20)
+    if media == 2 or media == 8:
+        pmValue += (pmValue * 0.15)
+        no2Value += (no2Value * 0.15)
+        o3Value += (o3Value * 0.15)
+    if media == 3 or media == 7:
+        pmValue += (pmValue * 0.10)
+        no2Value += (no2Value * 0.10)
+        o3Value += (o3Value * 0.10)
+    if media == 4 or media == 6:
+        pmValue += (pmValue * 0.05)
+        no2Value += (no2Value * 0.05)
+        o3Value += (o3Value * 0.05)
+
+    return pmValue, no2Value, o3Value
+
+
 def calculation(data, sensorDate):
     # Temp and Humidity
     dhtJson = json.loads(data.loc[data['data_sensor_name'] == 'DHT222']['data_sensor_json'].astype(str).values[0])
@@ -70,6 +124,10 @@ def calculation(data, sensorDate):
     no2Value = json.loads(data.loc[data['data_sensor_name'] == 'NO2']['data_sensor_json'].astype(str).values[0])['no2']
     o3Value = json.loads(data.loc[data['data_sensor_name'] == 'O3']['data_sensor_json'].astype(str).values[0])['o3']
 
+    #to apply result of servey in status
+    pmValue, no2Value, o3Value = applySurvey(pm10Value, no2Value, o3Value)
+
+    #Create JSON file to store in Database
     sensorsData = {'pm10': pm10Value, 'pm25': pm25Value, 'no2': no2Value, 'o3': o3Value, 'temp': temp, 'hum': humi}
     sensorsDataJson = json.dumps(sensorsData)
 
@@ -78,7 +136,6 @@ def calculation(data, sensorDate):
     no2 = int((no2Value / float(no2Reference)) * 100)
     o3 = int((o3Value / float(o3Reference)) * 100)
 
-    # TODO : we have just 4 type of avatar but here we have 5 cases ???????
     # IPQA value and AIR Quality status
     ipqaValue = max(pm, no2, o3)
 
