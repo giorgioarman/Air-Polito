@@ -88,25 +88,29 @@ def applySurvey(pmValue, no2Value, o3Value):
     media = round(output / (len(df) - 1), 0)
 
     if media == 0 or media == 10:
-        pmValue += (pmValue * 0.25)
-        no2Value += (no2Value * 0.25)
-        o3Value += (o3Value * 0.25)
+        coefficient = 0.25
+        if media == 10:
+            coefficient *= -1
     if media == 1 or media == 9:
-        pmValue += (pmValue * 0.20)
-        no2Value += (no2Value * 0.20)
-        o3Value += (o3Value * 0.20)
+        coefficient = 0.20
+        if media == 9:
+            coefficient *= -1
     if media == 2 or media == 8:
-        pmValue += (pmValue * 0.15)
-        no2Value += (no2Value * 0.15)
-        o3Value += (o3Value * 0.15)
+        coefficient = 0.15
+        if media == 8:
+            coefficient *= -1
     if media == 3 or media == 7:
-        pmValue += (pmValue * 0.10)
-        no2Value += (no2Value * 0.10)
-        o3Value += (o3Value * 0.10)
+        coefficient = 0.10
+        if media == 7:
+            coefficient *= -1
     if media == 4 or media == 6:
-        pmValue += (pmValue * 0.05)
-        no2Value += (no2Value * 0.05)
-        o3Value += (o3Value * 0.05)
+        coefficient = 0.05
+        if media == 6:
+            coefficient *= -1
+
+    pmValue += (pmValue * coefficient)
+    no2Value += (no2Value * coefficient)
+    o3Value += (o3Value * coefficient)
 
     return pmValue, no2Value, o3Value
 

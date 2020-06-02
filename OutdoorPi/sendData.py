@@ -49,7 +49,7 @@ def sendData(data):
 def cleanDb():
     now = datetime.datetime.now()
     if now.hour == 0 and now.minute == 0:
-        two_days = now - datetime.timedelta(days=2)
+        two_days = now - datetime.timedelta(days=10)
         rowcount = db.delete('sensors_data', 'data_date < \'' + str(two_days) + '\'')
         print str(rowcount), ' Rows are deleted.'
 
